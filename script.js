@@ -5,6 +5,7 @@ const xpDisplay = document.getElementById("xp");
 let xp = 0;
 
 // DATA ATUAL
+
 const today = new Date();
 
 // PEGA SEMANA DO ANO
