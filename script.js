@@ -4,6 +4,34 @@ const xpDisplay = document.getElementById("xp");
 
 let xp = 0;
 
+// DATA ATUAL
+const today = new Date();
+
+// PEGA SEMANA DO ANO
+function getWeekNumber(date){
+
+  const firstDay = new Date(date.getFullYear(),0,1);
+
+  const pastDays = (date - firstDay) / 86400000;
+
+  return Math.ceil((pastDays + firstDay.getDay()+1)/7);
+
+}
+
+const currentWeek = getWeekNumber(today);
+
+// VERIFICA RESET
+const savedWeek = localStorage.getItem("week");
+
+if(savedWeek != currentWeek){
+
+  localStorage.removeItem("tasks");
+
+  localStorage.setItem("week", currentWeek);
+
+}
+
+// CHECKBOX
 tasks.forEach(task => {
 
   task.addEventListener("change", () => {
@@ -32,6 +60,7 @@ tasks.forEach(task => {
 
 });
 
+// SALVAR
 function saveProgress(){
 
   const checked = [];
@@ -48,6 +77,7 @@ function saveProgress(){
 
 }
 
+// CARREGAR
 function loadProgress(){
 
   const checked = JSON.parse(localStorage.getItem("tasks"));
@@ -81,48 +111,3 @@ function loadProgress(){
 }
 
 loadProgress();
-
-// ===== PARTICLES =====
-
-const particles =
-  document.querySelector(
-    ".particles"
-  );
-
-
-for(let i = 0; i < 50; i++){
-
-  const particle =
-    document.createElement(
-      "span"
-    );
-
-
-  const size =
-    Math.random() * 4 + 2;
-
-
-  particle.style.width =
-    `${size}px`;
-
-  particle.style.height =
-    `${size}px`;
-
-
-  particle.style.left =
-    `${Math.random() * 100}%`;
-
-
-  particle.style.animationDuration =
-    `${Math.random() * 10 + 5}s`;
-
-
-  particle.style.animationDelay =
-    `${Math.random() * 5}s`;
-
-
-  particles.appendChild(
-    particle
-  );
-
-}
